@@ -4,7 +4,7 @@ const app = require('../app.js');
 
 const signUp = (data) => {
   return $.ajax({
-    url: app.host + '/sign-up/',
+    url: app.host + '/sign-up',
     method: 'POST',
     data: data,
   });
@@ -12,7 +12,7 @@ const signUp = (data) => {
 
 const signIn = (data) => {
   return $.ajax({
-    url: app.host + '/sign-in/',
+    url: app.host + '/sign-in',
     method: 'POST',
     data: data,
   });
