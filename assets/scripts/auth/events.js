@@ -73,87 +73,17 @@ const setTurn = function () {
     return move;
   };
 
-/*
-const setGameArray = function (id, move) {
-  let location = id;
-  let value = move;
 
-    if (i === location) {
-      if (gameBoard[i] !== '') {
-        console.log(value + 'already has this spot!');
-      } else {
-        gameBoard[i] = value;
-      }
+const setGameArray = function (id, move) {
+  let location = parseInt(id);
+  let value = move;
+  if (gameBoard[location] !== '') {
+    console.log(value + 'already has this spot!');
+  } else {
+    gameBoard[location] = value;
     }
-  }
   console.log(gameBoard);
 };
-*/
-
-  const setGameArray = function (id, move) {
-    let location = id;
-    let value = move;
-    // console.log(location);
-    // console.log(value);
-    if (location === "box1"){
-      if (gameBoard[0] !== '') {
-        console.log(move + 'already has this spot!');
-      } else {
-        gameBoard[0] = value;
-      }
-    } else if (location === "box2"){
-      if (gameBoard[1] !== '') {
-        console.log(move + 'already has this spot!');
-      } else {
-        gameBoard[1] = value;
-      }
-    } else if (location === "box3"){
-      if (gameBoard[2] !== '') {
-        console.log(move + 'already has this spot!');
-      } else {
-        gameBoard[2] = value;
-      }
-    } else if (location === "box4"){
-      if (gameBoard[3] !== '') {
-        console.log(move + 'already has this spot!');
-      } else {
-        gameBoard[3] = value;
-      }
-    } else if (location === "box5"){
-      if (gameBoard[4] !== '') {
-        console.log(move + 'already has this spot!');
-      } else {
-        gameBoard[4] = value;
-      }
-    } else if (location === "box6"){
-      if (gameBoard[5] !== '') {
-        console.log(move + 'already has this spot!');
-      } else {
-        gameBoard[5] = value;
-      }
-    } else if (location === "box7"){
-      if (gameBoard[6] !== '') {
-        console.log(move + 'already has this spot!');
-      } else {
-        gameBoard[6] = value;
-      }
-    } else if (location === "box8"){
-      if (gameBoard[7] !== '') {
-        console.log(move + 'already has this spot!');
-      } else {
-        gameBoard[7] = value;
-      }
-    } else {
-      if (gameBoard[8] !== '') {
-        console.log(move + 'already has this spot!');
-      } else {
-        gameBoard[8] = value;
-      }
-    }
-    console.log(gameBoard);
-    // return gameBoard;
-  };
-
 
 //set value of text to play move
 const playerMove = function (event) {
@@ -165,9 +95,6 @@ const playerMove = function (event) {
     setGameArray(id, move);
   };
 
-//set index of array based on div clicked and player turn
-
-/*
 const addHandlers = () => {
   $('#sign-up').on('submit', onSignUp);
   $('#sign-in').on('submit', onSignIn);
@@ -175,36 +102,15 @@ const addHandlers = () => {
   $('#change-password').on('submit', onChangePassword);
   $('#new-game').on('submit', onNewGame);
   $('#view-games').on('submit', onViewGames);
-  $('#box1').on('click', playerMove);
-  $('#box2').on('click', playerMove);
-  $('#box3').on('click', playerMove);
-  $('#box4').on('click', playerMove);
-  $('#box5').on('click', playerMove);
-  $('#box6').on('click', playerMove);
-  $('#box7').on('click', playerMove);
-  $('#box8').on('click', playerMove);
-  $('#box9').on('click', playerMove);
-};
-*/
-
-const addHandlers = () => {
-  $('#sign-up').on('submit', onSignUp);
-  $('#sign-in').on('submit', onSignIn);
-  $('#sign-out').on('submit', onSignOut);
-  $('#change-password').on('submit', onChangePassword);
-  $('#new-game').on('submit', onNewGame);
-  $('#view-games').on('submit', onViewGames);
-  $('#box1').on('click', playerMove);
-  $('#box2').on('click', playerMove);
-  $('#box3').on('click', playerMove);
-  $('#box4').on('click', playerMove);
-  $('#box5').on('click', playerMove);
-  $('#box6').on('click', playerMove);
-  $('#box7').on('click', playerMove);
-  $('#box8').on('click', playerMove);
-  $('#box9').on('click', playerMove);
-
-//  $('.box').on('click', setGameArray);
+  $('#0').on('click', playerMove);
+  $('#1').on('click', playerMove);
+  $('#2').on('click', playerMove);
+  $('#3').on('click', playerMove);
+  $('#4').on('click', playerMove);
+  $('#5').on('click', playerMove);
+  $('#6').on('click', playerMove);
+  $('#7').on('click', playerMove);
+  $('#8').on('click', playerMove);
 };
 
 $(document).ready(function () {
