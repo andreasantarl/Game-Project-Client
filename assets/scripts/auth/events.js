@@ -60,18 +60,16 @@ const onViewGames = function (event) {
 
 //alternate between x and o
 const setTurn = function () {
-  if (turn % 2 === 0 ) {
-      move = 'x';
-      player = "Player 1";
+    if (turn % 2 === 0 ) {
+        move = 'x';
+        player = "Player1";
+      } else {
+        move = 'o';
+        player = "Player2";
+      }
       turn++;
-    } else {
-      move = 'o';
-      player = "Player 2";
-      turn++;
-    }
-    // console.log(move);
     return move;
-  };
+};
 
 
 const setGameArray = function (id, move) {
@@ -89,11 +87,34 @@ const setGameArray = function (id, move) {
 const playerMove = function (event) {
     event.preventDefault();
     let move = setTurn();
-    $(this).text(move);
+    if (move === ''){
+        console.log("You already picked something!");
+        $(this).off('click');
+      } else {
+        $(this).text(move);
+        $(this).off('click');
+      }
     let id = $(this).attr('id');
 
     setGameArray(id, move);
   };
+
+/*
+  const checkForWin = function (array) {
+    event.preventDefault();
+    let game = array;
+    if (array[0] === array[1] === array[2] ||
+      array[3] === array[4] === array[5] ||
+      array[6] === array[7] === array[8] ||
+      array[0] === array[3] === array[6] ||
+      array[1] === array[4] === array[7] ||
+      array[2] === array[5] === array[8] ||
+      array[0] === array[4] === array[8] ||
+      array[2] === array[4] === array[6]) {
+        if
+      }
+  }
+  */
 
 const addHandlers = () => {
   $('#sign-up').on('submit', onSignUp);
