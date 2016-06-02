@@ -127,11 +127,11 @@ const setGameArray = function (id, move) {
 
 const onRestartGame = function (event){
   event.preventDefault();
-  let gameBoard = ['', '', '', '', '', '', '', '', ''];
-  let turn = 0;
-  let move = '';
-  let player = '';
-  let winner = false;
+  gameBoard = ['', '', '', '', '', '', '', '', ''];
+  turn = 0;
+  move = '';
+  player = '';
+  winner = false;
 };
 
 
