@@ -39,9 +39,35 @@ const changePassword = (data) => {
   });
 };
 
+//new Game created
+const newGame = (data) => {
+  return $.ajax({
+    url: app.host + '/games',
+    method: 'POST',
+    headers: {
+      Authorization: 'Token token=' + app.user.token,
+    },
+    data: data,
+  });
+};
+
+//new view games
+const viewGames = (data) => {
+  return $.ajax({
+    url: app.host + '/games/:' + app.user.id,
+    method: 'GET',
+    headers: {
+      Authorization: 'Token token=' + app.user.token,
+    },
+    data: data,
+  });
+};
+
 module.exports = {
   signUp,
   signIn,
   signOut,
   changePassword,
+  newGame,
+  viewGames,
 };
