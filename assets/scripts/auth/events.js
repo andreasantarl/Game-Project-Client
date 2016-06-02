@@ -116,12 +116,12 @@ const checkForWin = function (gameBoard) {
 const setGameArray = function (id, move) {
   let location = parseInt(id);
   let value = move;
-    if (gameBoard[location] !== '') {
-      console.log(value + 'already has this spot!');
-      } else {
-        gameBoard[location] = value;
-      }
-        checkForWin(gameBoard);
+  if (gameBoard[location] !== '') {
+    console.log(value + 'already has this spot!');
+    } else {
+      gameBoard[location] = value;
+    }
+      checkForWin(gameBoard);
 };
 
 const onRestartGame = function (event){
