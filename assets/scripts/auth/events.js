@@ -125,6 +125,15 @@ const setGameArray = function (id, move) {
         checkForWin(gameBoard);
 };
 
+const onRestartGame = function (event){
+  event.preventDefault();
+  let gameBoard = ['', '', '', '', '', '', '', '', ''];
+  let turn = 0;
+  let move = '';
+  let player = '';
+  let winner = false;
+};
+
 
 //set value of text to play move
 const playerMove = function (event) {
@@ -134,7 +143,6 @@ const playerMove = function (event) {
     } else {
       let move = setTurn();
       if (move === ''){
-
           console.log("You already picked something!");
           $(this).off('click');
         } else {
@@ -166,6 +174,7 @@ const addHandlers = () => {
   $('#6').on('click', playerMove);
   $('#7').on('click', playerMove);
   $('#8').on('click', playerMove);
+  $('#restart-game').on('click', onRestartGame);
 };
 
 $(document).ready(function () {
