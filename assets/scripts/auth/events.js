@@ -116,13 +116,21 @@ const checkForWin = function (gameBoard) {
 const setGameArray = function (id, move) {
   let location = parseInt(id);
   let value = move;
+  if (gameBoard[location] !== '') {
+    console.log(value + 'already has this spot!');
+    } else {
+      gameBoard[location] = value;
+    }
+      checkForWin(gameBoard);
+};
 
-    if (gameBoard[location] !== '') {
-      console.log(value + 'already has this spot!');
-      } else {
-        gameBoard[location] = value;
-      }
-        checkForWin(gameBoard);
+const onRestartGame = function (event){
+  event.preventDefault();
+  gameBoard = ['', '', '', '', '', '', '', '', ''];
+  turn = 0;
+  move = '';
+  player = '';
+  winner = false;
 };
 
 
@@ -134,7 +142,6 @@ const playerMove = function (event) {
     } else {
       let move = setTurn();
       if (move === ''){
-
           console.log("You already picked something!");
           $(this).off('click');
         } else {
@@ -166,6 +173,7 @@ const addHandlers = () => {
   $('#6').on('click', playerMove);
   $('#7').on('click', playerMove);
   $('#8').on('click', playerMove);
+  $('#restart-game').on('click', onRestartGame);
 };
 
 $(document).ready(function () {
