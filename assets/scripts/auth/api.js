@@ -40,14 +40,14 @@ const changePassword = (data) => {
 };
 
 //new Game created
-const newGame = (data) => {
+const newGame = () => {
   return $.ajax({
     url: app.host + '/games',
     method: 'POST',
     headers: {
       Authorization: 'Token token=' + app.user.token,
     },
-    data: data,
+    //data: data,
   });
 };
 
