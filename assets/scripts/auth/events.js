@@ -107,11 +107,12 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='o')) {
           winner = true;
-          window.alert("Player O won the game!");
+      //    $(document).text("<div>Player O won the game!</div>");
+          //div in HTML with this junk and then hide on document load and then show when win/loss/tie occurs
           // console.log("The winner is: o");
           // console.log("Winner value " + winner);
         } else if (gameBoard.indexOf('') === -1) {
-              window.alert("It's a tie!");
+          window.alert("It's a tie!");
           // console.log ("The game continues");
           // console.log("Winner value " + winner);
         } else {
@@ -205,9 +206,7 @@ const addHandlers = () => {
   $('#6').on('click', playerMove);
   $('#7').on('click', playerMove);
   $('#8').on('click', playerMove);
-
 };
-
 
 module.exports = {
   addHandlers,
