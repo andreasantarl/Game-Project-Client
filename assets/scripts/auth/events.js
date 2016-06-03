@@ -42,15 +42,7 @@ const onChangePassword = function (event) {
     .fail(ui.failure);
 };
 
-//create new game
-const onNewGame = function () {
-  event.preventDefault();
-  //let data = getFormFields(event.target);
-  api.newGame()
-    .done(ui.success)
-    .fail(ui.failure);
-    onRestartGame();
-};
+
 
 const onViewGames = function (event) {
   event.preventDefault();
@@ -73,6 +65,7 @@ const setTurn = function () {
     return move;
 };
 
+
 //allow game moves to be made if not already done
 const setGameArray = function (id, move) {
   let location = parseInt(id);
@@ -85,24 +78,7 @@ const setGameArray = function (id, move) {
 //      checkForWin(gameBoard);
 };
 
-//set value of text to play move
-const playerMove = function (event) {
-    event.preventDefault();
-    if (winner) {
-    } else {
-      let move = setTurn();
-      if (move === ''){
-          console.log("You already picked something!");
-          //$(this).off('click');
-        } else {
-          $(this).text(move);
-          let id = $(this).attr('id');
-          setGameArray(id, move);
-          $(this).off('click');
-        }
-    }
-    checkForWin(gameBoard);
-  };
+
 
 //checks if a user has won the game
 const checkForWin = function (gameBoard) {
@@ -142,28 +118,58 @@ const checkForWin = function (gameBoard) {
 //    return winner;
 };
 
+//set value of text to play move
+const playerMove = function (event) {
+    event.preventDefault();
+    checkForWin(gameBoard);
+    if (winner) {
+      $('.box').off('click');
+    } else {
+      let move = setTurn();
+        if ($(this).text() !== '') {
+          $(this).off('click');
+        } else {
+          $(this).text(move);
+          let id = $(this).attr('id');
+          setGameArray(id, move);
+        }
+    }
+  };
+  const onRestartGame = function (){
+    //event.preventDefault();
+    gameBoard = ['', '', '', '', '', '', '', '', ''];
+    turn = 0;
+    move = '';
+    player = '';
+    winner = false;
+    if (!$(".box").text('')){
+      $('.box').on('click', playerMove);
+      // $('#1').on('click', playerMove);
+      // $('#2').on('click', playerMove);
+      // $('#3').on('click', playerMove);
+      // $('#4').on('click', playerMove);
+      // $('#5').on('click', playerMove);
+      // $('#6').on('click', playerMove);
+      // $('#7').on('click', playerMove);
+      // $('#8').on('click', playerMove);
+    } else {
+      $(".box").text('');
+    }
 
 
-const onRestartGame = function (){
-  //event.preventDefault();
-  gameBoard = ['', '', '', '', '', '', '', '', ''];
-  turn = 0;
-  move = '';
-  player = '';
-  winner = false;
-    $('#0').on('click', playerMove);
-    $('#1').on('click', playerMove);
-    $('#2').on('click', playerMove);
-    $('#3').on('click', playerMove);
-    $('#4').on('click', playerMove);
-    $('#5').on('click', playerMove);
-    $('#6').on('click', playerMove);
-    $('#7').on('click', playerMove);
-    $('#8').on('click', playerMove);
-  $(".box").text(null);
+    //addHandlers();
+  };
 
-  //addHandlers();
-};
+  //create new game
+  const onNewGame = function () {
+    event.preventDefault();
+    //let data = getFormFields(event.target);
+    api.newGame()
+      .done(ui.success)
+      .fail(ui.failure);
+      onRestartGame();
+  };
+
 
 const addHandlers = () => {
     //$('#restart-game').on('click', onRestartGame);
