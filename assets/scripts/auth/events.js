@@ -4,12 +4,14 @@ const getFormFields = require('../../../lib/get-form-fields');
 
 const api = require('./api');
 const ui = require('./ui');
+//const app = require('../app.js');
 
 let gameBoard = ['', '', '', '', '', '', '', '', ''];
 let turn = 0;
 let move = '';
 let player = '';
 let winner = false;
+let arrayIndex = '';
 
 const onSignUp = function (event) {
   event.preventDefault();
@@ -42,16 +44,14 @@ const onChangePassword = function (event) {
     .fail(ui.failure);
 };
 
-
-
-const onViewGames = function (event) {
-  event.preventDefault();
-  //console.table(data);
-  let data = getFormFields(event.target);
-  api.viewGames(data)
-    .done(ui.displayGames)
-    .fail(ui.failure);
-};
+// const onViewGames = function (event) {
+//   event.preventDefault();
+//   //console.table(data);
+//   let data = getFormFields(event.target);
+//   api.viewGames(data)
+//     .done(ui.displayGames)
+//     .fail(ui.failure);
+// };
 
 //alternate between x and o
 const setTurn = function () {
@@ -67,7 +67,6 @@ const setTurn = function () {
     return move;
 };
 
-
 //allow game moves to be made if not already done
 const setGameArray = function (id, move) {
   let location = parseInt(id);
@@ -77,10 +76,9 @@ const setGameArray = function (id, move) {
     } else {
       gameBoard[location] = value;
     }
-//      checkForWin(gameBoard);
+//    return location;
+  arrayIndex = gameBoard[location];
 };
-
-
 
 //checks if a user has won the game
 const checkForWin = function (gameBoard) {
@@ -109,31 +107,33 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='o')) {
           winner = true;
-      //    $(document).text("<div>Player O won the game!</div>");
           //div in HTML with this junk and then hide on document load and then show when win/loss/tie occurs
            console.log("The winner is: o");
-          // console.log("Winner value " + winner);
         } else if (gameBoard.indexOf('') === -1) {
           window.alert("It's a tie!");
-          // console.log ("The game continues");
-          // console.log("Winner value " + winner);
         } else {
 
-          // console.log("Winner value " + winner);
         }
-        // for (let i = 0; i < gameBoard.length; i++) {
-        //   if (gameBoard[i] !== '') {
-        //
-        //   }
-        //}
-//      console.log(gameBoard);
-//    return winner;
+};
+
+
+const onUpdateGames = function (gameMoveIndex, gameMove, gameOver) {
+  gameMove = move;
+  // gameMoveIndex = setGameArray();
+  //find index of array
+  gameMoveIndex = arrayIndex;
+  gameOver = winner;
+  event.preventDefault();
+  //console.table(data);
+  //let data = getFormFields(event.target);
+  api.updateGames(gameMoveIndex, gameMove, gameOver)
+    .done(ui.displayGames)
+    .fail(ui.failure);
 };
 
 //set value of text to play move
 const playerMove = function (event) {
     event.preventDefault();
-
     let move = setTurn();  //should be 'x' or 'o'
     console.log("move " + move);
     if (winner) {
@@ -150,8 +150,25 @@ const playerMove = function (event) {
         }
         checkForWin(gameBoard);
         // console.log("gameBoard after move " + gameBoard);
+          //set value for ID of game, array value, if game is over or not
     }
+    //
+    // const onUpdateGames = function (gameMoveIndex, gameMove, gameOver) {
+    //   gameMove = move;
+    //   gameMoveIndex = setGameArray();
+    //   gameOver = winner;
+    //   event.preventDefault();
+    //   //console.table(data);
+    //   //let data = getFormFields(event.target);
+    //   api.viewGames(gameMoveIndex, gameMove, gameOver)
+    //     .done(ui.displayGames)
+    //     .fail(ui.failure);
+    // };
+    onUpdateGames(setGameArray, move, winner);
+    //gameMoveIndex, gameMove, gameOver
   };
+
+
 
   const onRestartGame = function (){
     winner = false;
@@ -164,6 +181,7 @@ const playerMove = function (event) {
     console.log("move after restart: " + move);
     player = '';
     console.log("player after restart: " + player);
+    arrayIndex = '';
     // $(".box").on('click');
 //   $('.box').on('click', playerMove);
      $('.box').removeClass('noClick');
@@ -192,7 +210,7 @@ const playerMove = function (event) {
     event.preventDefault();
     //let data = getFormFields(event.target);
     api.newGame()
-      .done(ui.success)
+      .done(ui.createGameSuccess)
       .then(onRestartGame())
       .fail(ui.failure);
       // onRestartGame();
@@ -206,7 +224,7 @@ const addHandlers = () => {
   $('#sign-out').on('submit', onSignOut);
   $('#change-password').on('submit', onChangePassword);
   $('#new-game').on('submit', onNewGame);
-  $('#view-games').on('submit', onViewGames);
+  //$('#view-games').on('submit', onViewGames);
   $('#0').on('click', playerMove);
   $('#1').on('click', playerMove);
   $('#2').on('click', playerMove);
