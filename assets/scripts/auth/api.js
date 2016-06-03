@@ -1,6 +1,7 @@
 'use strict';
 
 const app = require('../app.js');
+const ui = require('./ui');
 
 const signUp = (data) => {
   return $.ajax({
@@ -47,19 +48,38 @@ const newGame = () => {
     headers: {
       Authorization: 'Token token=' + app.user.token,
     },
-    //data: data,
+    data: {},
   });
 };
 
-//new view games
-const viewGames = (data) => {
+// //new view games
+// const viewGames = (data) => {
+//   return $.ajax({
+//     url: app.host + '/games/' + app.games.id,
+//     method: 'PATCH',
+//     headers: {
+//       Authorization: 'Token token=' + app.user.token,
+//     },
+//     data: data,
+//   });
+// };
+
+const updateGames = (gameMoveIndex, gameMove, gameOver) => {
   return $.ajax({
-    url: app.host + '/games/:' + app.user.id,
-    method: 'GET',
+    url: app.host + '/games/' + ui.returnGameId(),
+    method: 'PATCH',
     headers: {
       Authorization: 'Token token=' + app.user.token,
     },
-    data: data,
+    data: {
+      "game": {
+        "cell": {
+          "index": gameMoveIndex,
+          "value": gameMove,
+        },
+        "over": gameOver,
+      }
+    }
   });
 };
 
@@ -69,5 +89,6 @@ module.exports = {
   signOut,
   changePassword,
   newGame,
-  viewGames,
+//  viewGames,
+  updateGames,
 };
