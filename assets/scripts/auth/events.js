@@ -43,12 +43,13 @@ const onChangePassword = function (event) {
 };
 
 //create new game
-const onNewGame = function (event) {
+const onNewGame = function () {
   event.preventDefault();
-  let data = getFormFields(event.target);
-  api.newGame(data)
+  //let data = getFormFields(event.target);
+  api.newGame()
     .done(ui.success)
     .fail(ui.failure);
+    onRestartGame();
 };
 
 const onViewGames = function (event) {
@@ -72,10 +73,41 @@ const setTurn = function () {
     return move;
 };
 
+//allow game moves to be made if not already done
+const setGameArray = function (id, move) {
+  let location = parseInt(id);
+  let value = move;
+  if (gameBoard[location] !== '') {
+    console.log(value + 'already has this spot!');
+    } else {
+      gameBoard[location] = value;
+    }
+//      checkForWin(gameBoard);
+};
+
+//set value of text to play move
+const playerMove = function (event) {
+    event.preventDefault();
+    if (winner) {
+    } else {
+      let move = setTurn();
+      if (move === ''){
+          console.log("You already picked something!");
+          //$(this).off('click');
+        } else {
+          $(this).text(move);
+          let id = $(this).attr('id');
+          setGameArray(id, move);
+          $(this).off('click');
+        }
+    }
+    checkForWin(gameBoard);
+  };
+
+//checks if a user has won the game
 const checkForWin = function (gameBoard) {
   event.preventDefault();
   console.log('Gameboard' + gameBoard);
-
   if (
       ((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='x') ||
       ((gameBoard[3] === gameBoard[4]) && (gameBoard[5] === gameBoard[3]) && gameBoard[3] ==='x') ||
@@ -101,63 +133,40 @@ const checkForWin = function (gameBoard) {
           console.log("The winner is: o");
           console.log("Winner value " + winner);
         } if (gameBoard.indexOf('')) {
-        //  winner = false;
           console.log ("The game continues");
           console.log("Winner value " + winner);
         } else {
-          //winner = false;
           console.log("Winner value " + winner);
         }
       console.log(gameBoard);
-    return winner;
+//    return winner;
 };
 
-//allow game moves to be made if not already done
-const setGameArray = function (id, move) {
-  let location = parseInt(id);
-  let value = move;
-  if (gameBoard[location] !== '') {
-    console.log(value + 'already has this spot!');
-    } else {
-      gameBoard[location] = value;
-    }
-      checkForWin(gameBoard);
-};
 
-const onRestartGame = function (event){
-  event.preventDefault();
+
+const onRestartGame = function (){
+  //event.preventDefault();
   gameBoard = ['', '', '', '', '', '', '', '', ''];
   turn = 0;
   move = '';
   player = '';
   winner = false;
+    $('#0').on('click', playerMove);
+    $('#1').on('click', playerMove);
+    $('#2').on('click', playerMove);
+    $('#3').on('click', playerMove);
+    $('#4').on('click', playerMove);
+    $('#5').on('click', playerMove);
+    $('#6').on('click', playerMove);
+    $('#7').on('click', playerMove);
+    $('#8').on('click', playerMove);
+  $(".box").text(null);
+
+  //addHandlers();
 };
 
-
-//set value of text to play move
-const playerMove = function (event) {
-    event.preventDefault();
-    if (winner) {
-      $(this).off('click');
-    } else {
-      let move = setTurn();
-      if (move === ''){
-          console.log("You already picked something!");
-          $(this).off('click');
-        } else {
-          $(this).text(move);
-          $(this).off('click');
-        }
-        let id = $(this).attr('id');
-        setGameArray(id, move);
-    }
-
-  };
-
-
-
-
 const addHandlers = () => {
+    //$('#restart-game').on('click', onRestartGame);
   $('#sign-up').on('submit', onSignUp);
   $('#sign-in').on('submit', onSignIn);
   $('#sign-out').on('submit', onSignOut);
@@ -173,12 +182,9 @@ const addHandlers = () => {
   $('#6').on('click', playerMove);
   $('#7').on('click', playerMove);
   $('#8').on('click', playerMove);
-  $('#restart-game').on('click', onRestartGame);
+
 };
 
-$(document).ready(function () {
-//  console.log(gameBoard);
-});
 
 module.exports = {
   addHandlers,
