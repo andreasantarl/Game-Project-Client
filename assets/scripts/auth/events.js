@@ -62,7 +62,8 @@ const setTurn = function () {
         move = 'o';
         player = "Player2";
       }
-      turn++;
+    //  turn++;
+      console.log(turn);
     return move;
 };
 
@@ -136,24 +137,25 @@ const playerMove = function (event) {
     let move = setTurn();  //should be 'x' or 'o'
     console.log("move " + move);
     if (winner) {
-      $('.box').off('click');
+      $('.box').addClass('noClick');
     } else {
-        if (!$(this).text('')) {
-          $(this).off('click');
+        if ($(this).hasClass('noClick')) {
+          console.log('cant click here');
         } else {
-          $(this).on('click');
           $(this).text(move);
-          $(this).off('click');
+          $(event.target).addClass('noClick');
           let id = $(this).attr('id');
+          turn++;
           setGameArray(id, move);
         }
         checkForWin(gameBoard);
-        console.log("gameBoard after move " + gameBoard);
+        // console.log("gameBoard after move " + gameBoard);
     }
   };
 
   const onRestartGame = function (){
-    event.preventDefault();
+    winner = false;
+       console.log("winner: " + winner);
     gameBoard = ['', '', '', '', '', '', '', '', ''];
     console.log("Gameboard after restart: " + gameBoard);
     turn = 0;
@@ -162,9 +164,12 @@ const playerMove = function (event) {
     console.log("move after restart: " + move);
     player = '';
     console.log("player after restart: " + player);
-  //  $(".box").on('click');
+    // $(".box").on('click');
+//   $('.box').on('click', playerMove);
+     $('.box').removeClass('noClick');
     if (!$(".box").text('')){
-     $('.box').on('click', playerMove);
+    //  $('.box').on('click', playerMove);
+      //    $('.box').on('click', playerMove);
       // $('#1').on('click', playerMove);
       // $('#2').on('click', playerMove);
       // $('#3').on('click', playerMove);
@@ -175,9 +180,10 @@ const playerMove = function (event) {
       // $('#8').on('click', playerMove);
    } else {
       $(".box").text('');
+          //  $('.box').on('click', playerMove);
     }
-    winner = false;
-   console.log("winner: " + winner);
+
+
 //   playerMove();
   };
 
@@ -187,8 +193,9 @@ const playerMove = function (event) {
     //let data = getFormFields(event.target);
     api.newGame()
       .done(ui.success)
+      .then(onRestartGame())
       .fail(ui.failure);
-      onRestartGame();
+      // onRestartGame();
   };
 
 
