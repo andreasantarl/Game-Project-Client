@@ -46,9 +46,10 @@ const onChangePassword = function (event) {
 
 const onViewGames = function (event) {
   event.preventDefault();
+  console.table(data);
   let data = getFormFields(event.target);
   api.viewGames(data)
-    .done(ui.success)
+    .done(ui.displayGames)
     .fail(ui.failure);
 };
 
