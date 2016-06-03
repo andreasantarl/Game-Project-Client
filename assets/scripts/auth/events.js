@@ -46,7 +46,7 @@ const onChangePassword = function (event) {
 
 const onViewGames = function (event) {
   event.preventDefault();
-  console.table(data);
+  //console.table(data);
   let data = getFormFields(event.target);
   api.viewGames(data)
     .done(ui.displayGames)
@@ -110,7 +110,7 @@ const checkForWin = function (gameBoard) {
           winner = true;
       //    $(document).text("<div>Player O won the game!</div>");
           //div in HTML with this junk and then hide on document load and then show when win/loss/tie occurs
-          // console.log("The winner is: o");
+           console.log("The winner is: o");
           // console.log("Winner value " + winner);
         } else if (gameBoard.indexOf('') === -1) {
           window.alert("It's a tie!");
@@ -138,15 +138,17 @@ const playerMove = function (event) {
     if (winner) {
       $('.box').off('click');
     } else {
-        if ($(this).text('')) {
+        if (!$(this).text('')) {
+          $(this).off('click');
+        } else {
+          $(this).on('click');
           $(this).text(move);
+          $(this).off('click');
           let id = $(this).attr('id');
           setGameArray(id, move);
-        } else {
-          $(this).off('click');
         }
-            checkForWin(gameBoard);
-console.log("gameBoard after move " + gameBoard);
+        checkForWin(gameBoard);
+        console.log("gameBoard after move " + gameBoard);
     }
   };
 
