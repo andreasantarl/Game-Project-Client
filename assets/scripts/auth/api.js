@@ -52,6 +52,18 @@ const newGame = () => {
   });
 };
 
+//make get request for number of games
+const gamesPlayed = () => {
+  return $.ajax({
+    url: app.host + '/games',
+    method: 'GET',
+    headers: {
+      Authorization: 'Token token=' + app.user.token,
+    },
+  });
+};
+
+
 // //new view games
 // const viewGames = (data) => {
 //   return $.ajax({
@@ -89,6 +101,6 @@ module.exports = {
   signOut,
   changePassword,
   newGame,
-//  viewGames,
+  gamesPlayed,
   updateGames,
 };

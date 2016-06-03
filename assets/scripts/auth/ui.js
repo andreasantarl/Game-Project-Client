@@ -34,6 +34,11 @@ const returnGameId = function (){
   return gameIdentifier;
 };
 
+const getGames = function (data) {
+  let gamesPlayed = data.games.length;
+  $(".gameAggregate").val(gamesPlayed);
+};
+
 module.exports = {
   failure,
   success,
@@ -41,4 +46,5 @@ module.exports = {
   signOutSuccess,
   createGameSuccess,
   returnGameId,
+  getGames,
 };

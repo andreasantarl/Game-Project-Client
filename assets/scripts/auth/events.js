@@ -216,6 +216,13 @@ const playerMove = function (event) {
       // onRestartGame();
   };
 
+  const onViewGames = function (event) {
+    event.preventDefault();
+    api.gamesPlayed()
+    .done(ui.getGames)
+    .fail(ui.failure);
+  }
+
 
 const addHandlers = () => {
     //$('#restart-game').on('click', onRestartGame);
@@ -224,7 +231,7 @@ const addHandlers = () => {
   $('#sign-out').on('submit', onSignOut);
   $('#change-password').on('submit', onChangePassword);
   $('#new-game').on('submit', onNewGame);
-  //$('#view-games').on('submit', onViewGames);
+  $('#view-games').on('submit', onViewGames);
   $('#0').on('click', playerMove);
   $('#1').on('click', playerMove);
   $('#2').on('click', playerMove);
