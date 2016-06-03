@@ -82,7 +82,7 @@ const setGameArray = function (id, move) {
 
 //checks if a user has won the game
 const checkForWin = function (gameBoard) {
-  event.preventDefault();
+//  event.preventDefault();
   console.log('Gameboard' + gameBoard);
   if (
       ((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='x') ||
@@ -95,8 +95,9 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='x')) {
         console.log(gameBoard[0]);
           winner = true;
-          console.log("The winner is: x");
-          console.log("Winner value " + winner);
+          window.alert("Player X won the game!");
+          // console.log("The winner is: x");
+          // console.log("Winner value " + winner);
         } else if (((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[3] === gameBoard[4]) && (gameBoard[5] === gameBoard[3]) && gameBoard[3] ==='o') ||
       ((gameBoard[6] === gameBoard[7]) && (gameBoard[8] === gameBoard[6]) && gameBoard[6] ==='o') ||
@@ -106,44 +107,60 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='o')) {
           winner = true;
-          console.log("The winner is: o");
-          console.log("Winner value " + winner);
-        } if (gameBoard.indexOf('')) {
-          console.log ("The game continues");
-          console.log("Winner value " + winner);
+          window.alert("Player O won the game!");
+          // console.log("The winner is: o");
+          // console.log("Winner value " + winner);
+        } else if (gameBoard.indexOf('') === -1) {
+              window.alert("It's a tie!");
+          // console.log ("The game continues");
+          // console.log("Winner value " + winner);
         } else {
-          console.log("Winner value " + winner);
+
+          // console.log("Winner value " + winner);
         }
-      console.log(gameBoard);
+        // for (let i = 0; i < gameBoard.length; i++) {
+        //   if (gameBoard[i] !== '') {
+        //
+        //   }
+        //}
+//      console.log(gameBoard);
 //    return winner;
 };
 
 //set value of text to play move
 const playerMove = function (event) {
     event.preventDefault();
-    checkForWin(gameBoard);
+
+    let move = setTurn();  //should be 'x' or 'o'
+    console.log("move " + move);
     if (winner) {
       $('.box').off('click');
     } else {
-      let move = setTurn();
-        if ($(this).text() !== '') {
-          $(this).off('click');
-        } else {
+        if ($(this).text('')) {
           $(this).text(move);
           let id = $(this).attr('id');
           setGameArray(id, move);
+        } else {
+          $(this).off('click');
         }
+            checkForWin(gameBoard);
+console.log("gameBoard after move " + gameBoard);
     }
   };
+
   const onRestartGame = function (){
-    //event.preventDefault();
+    event.preventDefault();
     gameBoard = ['', '', '', '', '', '', '', '', ''];
+    console.log("Gameboard after restart: " + gameBoard);
     turn = 0;
+    console.log("turn after restart: " + turn);
     move = '';
+    console.log("move after restart: " + move);
     player = '';
-    winner = false;
+    console.log("player after restart: " + player);
+  //  $(".box").on('click');
     if (!$(".box").text('')){
-      $('.box').on('click', playerMove);
+     $('.box').on('click', playerMove);
       // $('#1').on('click', playerMove);
       // $('#2').on('click', playerMove);
       // $('#3').on('click', playerMove);
@@ -152,16 +169,16 @@ const playerMove = function (event) {
       // $('#6').on('click', playerMove);
       // $('#7').on('click', playerMove);
       // $('#8').on('click', playerMove);
-    } else {
+   } else {
       $(".box").text('');
     }
-
-
-    //addHandlers();
+    winner = false;
+   console.log("winner: " + winner);
+//   playerMove();
   };
 
   //create new game
-  const onNewGame = function () {
+  const onNewGame = function (event) {
     event.preventDefault();
     //let data = getFormFields(event.target);
     api.newGame()
