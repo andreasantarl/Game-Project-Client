@@ -2,11 +2,37 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/';
 
 
+// .gameBoard {
+//   @include make-row();
+//   .box {
+//     @include make-xs-column(4);
+//     border: 1px solid #000;
+//     height: 100px;
+//   }
+// }
+.container {
+  width: 50%;
+  margin: auto 25%;
+}
+
 .gameBoard {
   @include make-row();
   .box {
+    @include make-lg-column(4);
+    @include make-md-column(4);
+    @include make-sm-column(4);
     @include make-xs-column(4);
     border: 1px solid #000;
-    height: 100px;
+    height: 16.666vw;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 90%;
+    margin: auto 5%;
+    & .box {
+      height: 30vw;
+    }
   }
 }
