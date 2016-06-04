@@ -1,6 +1,12 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/';
 
+$black: #000;
+$beige: #FAFAED;
+$teal: #008080;
+$dark-beige: #C4C4B0;
+$light-orange: #f6b563;
+
 
 // .gameBoard {
 //   @include make-row();
@@ -10,6 +16,16 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 //     height: 100px;
 //   }
 // }
+
+body {
+  background-color: $beige;
+
+}
+
+h1 {
+  color: $teal;
+}
+
 .container {
   width: 50%;
   margin: auto 25%;
@@ -22,7 +38,7 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
     @include make-md-column(4);
     @include make-sm-column(4);
     @include make-xs-column(4);
-    border: 1px solid #000;
+    border: 2px solid $light-orange;
     height: 16.666vw;
   }
 }
@@ -35,4 +51,8 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
       height: 30vw;
     }
   }
+}
+
+.gameBoard {
+  background-color: $dark-beige;
 }
