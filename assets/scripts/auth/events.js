@@ -134,8 +134,6 @@ const playerMove = function (event) {
     onUpdateGames(setGameArray, move, winner);
   };
 
-
-
   const onRestartGame = function (){
     winner = false;
     console.log("winner: " + winner);
@@ -166,8 +164,9 @@ const playerMove = function (event) {
 
   const onViewGames = function (event) {
     event.preventDefault();
+    //let data = getFormFields(event.target);
     api.viewGames()
-      .done(ui.getGames)
+      .done(ui.getGames())
       .fail(ui.failure);
   };
 
