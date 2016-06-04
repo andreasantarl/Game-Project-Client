@@ -44,15 +44,6 @@ const onChangePassword = function (event) {
     .fail(ui.failure);
 };
 
-// const onViewGames = function (event) {
-//   event.preventDefault();
-//   //console.table(data);
-//   let data = getFormFields(event.target);
-//   api.viewGames(data)
-//     .done(ui.displayGames)
-//     .fail(ui.failure);
-// };
-
 //alternate between x and o
 const setTurn = function () {
     if (turn % 2 === 0 ) {
@@ -76,13 +67,11 @@ const setGameArray = function (id, move) {
     } else {
       gameBoard[location] = value;
     }
-//    return location;
   arrayIndex = gameBoard[location];
 };
 
 //checks if a user has won the game
 const checkForWin = function (gameBoard) {
-//  event.preventDefault();
   console.log('Gameboard' + gameBoard);
   if (
       ((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='x') ||
@@ -96,8 +85,6 @@ const checkForWin = function (gameBoard) {
         console.log(gameBoard[0]);
           winner = true;
           window.alert("Player X won the game!");
-          // console.log("The winner is: x");
-          // console.log("Winner value " + winner);
         } else if (((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[3] === gameBoard[4]) && (gameBoard[5] === gameBoard[3]) && gameBoard[3] ==='o') ||
       ((gameBoard[6] === gameBoard[7]) && (gameBoard[8] === gameBoard[6]) && gameBoard[6] ==='o') ||
@@ -116,16 +103,11 @@ const checkForWin = function (gameBoard) {
         }
 };
 
-
 const onUpdateGames = function (gameMoveIndex, gameMove, gameOver) {
   gameMove = move;
-  // gameMoveIndex = setGameArray();
-  //find index of array
   gameMoveIndex = arrayIndex;
   gameOver = winner;
   event.preventDefault();
-  //console.table(data);
-  //let data = getFormFields(event.target);
   api.updateGames(gameMoveIndex, gameMove, gameOver)
     .done(ui.displayGames)
     .fail(ui.failure);
@@ -149,30 +131,13 @@ const playerMove = function (event) {
           setGameArray(id, move);
         }
         checkForWin(gameBoard);
-        // console.log("gameBoard after move " + gameBoard);
-          //set value for ID of game, array value, if game is over or not
     }
-    //
-    // const onUpdateGames = function (gameMoveIndex, gameMove, gameOver) {
-    //   gameMove = move;
-    //   gameMoveIndex = setGameArray();
-    //   gameOver = winner;
-    //   event.preventDefault();
-    //   //console.table(data);
-    //   //let data = getFormFields(event.target);
-    //   api.viewGames(gameMoveIndex, gameMove, gameOver)
-    //     .done(ui.displayGames)
-    //     .fail(ui.failure);
-    // };
     onUpdateGames(setGameArray, move, winner);
-    //gameMoveIndex, gameMove, gameOver
   };
-
-
 
   const onRestartGame = function (){
     winner = false;
-       console.log("winner: " + winner);
+    console.log("winner: " + winner);
     gameBoard = ['', '', '', '', '', '', '', '', ''];
     console.log("Gameboard after restart: " + gameBoard);
     turn = 0;
@@ -182,49 +147,37 @@ const playerMove = function (event) {
     player = '';
     console.log("player after restart: " + player);
     arrayIndex = '';
-    // $(".box").on('click');
-//   $('.box').on('click', playerMove);
      $('.box').removeClass('noClick');
     if (!$(".box").text('')){
-    //  $('.box').on('click', playerMove);
-      //    $('.box').on('click', playerMove);
-      // $('#1').on('click', playerMove);
-      // $('#2').on('click', playerMove);
-      // $('#3').on('click', playerMove);
-      // $('#4').on('click', playerMove);
-      // $('#5').on('click', playerMove);
-      // $('#6').on('click', playerMove);
-      // $('#7').on('click', playerMove);
-      // $('#8').on('click', playerMove);
-   } else {
+    } else {
       $(".box").text('');
-          //  $('.box').on('click', playerMove);
     }
-
-
-//   playerMove();
   };
 
   //create new game
   const onNewGame = function (event) {
     event.preventDefault();
-    //let data = getFormFields(event.target);
     api.newGame()
       .done(ui.createGameSuccess)
       .then(onRestartGame())
       .fail(ui.failure);
-      // onRestartGame();
   };
 
+  const onViewGames = function () {
+    event.preventDefault();
+    api.viewGames()
+      .done(ui.getGames)
+      .fail(ui.failure);
+          console.log(ui.getGames());
+  };
 
 const addHandlers = () => {
-    //$('#restart-game').on('click', onRestartGame);
   $('#sign-up').on('submit', onSignUp);
   $('#sign-in').on('submit', onSignIn);
   $('#sign-out').on('submit', onSignOut);
   $('#change-password').on('submit', onChangePassword);
   $('#new-game').on('submit', onNewGame);
-  //$('#view-games').on('submit', onViewGames);
+  $('#view-games').on('submit', onViewGames);
   $('#0').on('click', playerMove);
   $('#1').on('click', playerMove);
   $('#2').on('click', playerMove);
