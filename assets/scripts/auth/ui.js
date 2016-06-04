@@ -12,14 +12,31 @@ const success = (data) => {
 }
 };
 
+const signUpSuccess = (data) => {
+  if (data) {
+  console.log(data);
+} else {
+  console.log("WOOT!");
+}
+$("#sign-up").hide();
+$("#sign-in").hide();
+$("#new-game").show();
+$("#view-games").show();
+};
+
 const failure = (error) => {
   console.table(app.user);
   console.error(error);
+  //error message display on screen
 };
 
 const signInSuccess = (data) => {
   app.user = data.user;
   console.log(app.user);
+  $("#sign-in").hide();
+  $("#sign-up").hide();
+  $("#new-game").show();
+  $("#view-games").show();
 };
 
 const signOutSuccess = () => {
@@ -50,6 +67,7 @@ const getGames = function (data) {
 module.exports = {
   failure,
   success,
+  signUpSuccess,
   signInSuccess,
   signOutSuccess,
   createGameSuccess,

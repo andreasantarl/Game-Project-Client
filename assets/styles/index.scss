@@ -1,12 +1,58 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/';
 
+$black: #000;
+$beige: #FAFAED;
+$teal: #008080;
+$dark-beige: #C4C4B0;
+$light-orange: #f6b563;
+
+
+// .gameBoard {
+//   @include make-row();
+//   .box {
+//     @include make-xs-column(4);
+//     border: 1px solid #000;
+//     height: 100px;
+//   }
+// }
+
+body {
+  background-color: $beige;
+
+}
+
+h1 {
+  color: $teal;
+}
+
+.container {
+  width: 50%;
+  margin: auto 25%;
+}
 
 .gameBoard {
   @include make-row();
   .box {
+    @include make-lg-column(4);
+    @include make-md-column(4);
+    @include make-sm-column(4);
     @include make-xs-column(4);
-    border: 1px solid #000;
-    height: 100px;
+    border: 2px solid $light-orange;
+    height: 16.666vw;
   }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 90%;
+    margin: auto 5%;
+    & .box {
+      height: 30vw;
+    }
+  }
+}
+
+.gameBoard {
+  background-color: $dark-beige;
 }

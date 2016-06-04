@@ -12,12 +12,25 @@ let move = '';
 let player = '';
 let winner = false;
 let arrayIndex = '';
+$("#change-password").hide();
+$("#sign-out").hide();
+$("#sign-in").hide();
+$("#sign-up").hide();
+$("#new-game").hide();
+$("#view-games").hide();
+
+$("#open-login").on("click", function(){
+  event.preventDefault();
+  $("#sign-in").show();
+  $("#sign-up").show();
+  $("#open-login").hide();
+});
 
 const onSignUp = function (event) {
   event.preventDefault();
   let data = getFormFields(event.target);
   api.signUp(data)
-    .done(ui.success)
+    .done(ui.signUpSuccess)
     .fail(ui.failure);
 };
 
