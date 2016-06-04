@@ -12,14 +12,17 @@ let move = '';
 let player = '';
 let winner = false;
 let arrayIndex = '';
+let printResults = '';
+let nextPlayer = 'x';
 $("#change-password").hide();
 $("#sign-out").hide();
 $("#sign-in").hide();
 $("#sign-up").hide();
 $("#new-game").hide();
 $("#view-games").hide();
+$(".next-player").hide();
 
-$("#open-login").on("click", function(){
+$("#open-login").on("click", function(event){
   event.preventDefault();
   $("#sign-in").show();
   $("#sign-up").show();
@@ -59,15 +62,23 @@ const onChangePassword = function (event) {
 
 //alternate between x and o
 const setTurn = function () {
+  printResults = ("It is player o's move!");
+  $(".next-player").text(printResults);
     if (turn % 2 === 0 ) {
         move = 'x';
         player = "Player1";
+        nextPlayer = 'o';
       } else {
         move = 'o';
         player = "Player2";
+        nextPlayer = 'x';
       }
-    //  turn++;
       console.log(turn);
+      $(".box").on('click', function (player) {
+          player = nextPlayer;
+        printResults = ("It is player " + player + "'s move!");
+        $(".next-player").text(printResults);
+      });
     return move;
 };
 
@@ -130,7 +141,7 @@ const onUpdateGames = function (gameMoveIndex, gameMove, gameOver) {
 const playerMove = function (event) {
     event.preventDefault();
     let move = setTurn();  //should be 'x' or 'o'
-    console.log("move " + move);
+
     if (winner) {
       $('.box').addClass('noClick');
     } else {
@@ -141,11 +152,13 @@ const playerMove = function (event) {
           $(event.target).addClass('noClick');
           let id = $(this).attr('id');
           turn++;
+
           setGameArray(id, move);
         }
         checkForWin(gameBoard);
     }
     onUpdateGames(setGameArray, move, winner);
+    printResults = '';
   };
 
   const onRestartGame = function (){
