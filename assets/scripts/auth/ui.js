@@ -34,6 +34,16 @@ const returnGameId = function (){
   return gameIdentifier;
 };
 
+const getGames = function () {
+  let gamesPlayed = app.user.games.length;
+  // let  array = data.games;
+  // for (let i = 0; i < gamesPlayed; i++){
+//    checkForWin(array[i].cells);
+//  };
+  $(".gameAggregate").text(gamesPlayed);
+//  $(".")
+};
+
 module.exports = {
   failure,
   success,
@@ -41,4 +51,5 @@ module.exports = {
   signOutSuccess,
   createGameSuccess,
   returnGameId,
+  getGames,
 };
