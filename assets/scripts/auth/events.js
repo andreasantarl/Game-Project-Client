@@ -4,6 +4,7 @@ const getFormFields = require('../../../lib/get-form-fields');
 
 const api = require('./api');
 const ui = require('./ui');
+//const app = require('../app.js');
 
 let gameBoard = ['', '', '', '', '', '', '', '', ''];
 let turn = 0;
@@ -175,12 +176,12 @@ const playerMove = function (event) {
       .fail(ui.failure);
   };
 
-  const onViewGames = function (event) {
+  const onViewGames = function () {
     event.preventDefault();
-    //let data = getFormFields(event.target);
     api.viewGames()
-      .done(ui.getGames())
+      .done(ui.getGames)
       .fail(ui.failure);
+          console.log(ui.getGames());
   };
 
 const addHandlers = () => {

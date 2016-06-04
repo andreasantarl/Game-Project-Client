@@ -74,12 +74,11 @@ const updateGames = (gameMoveIndex, gameMove, gameOver) => {
 //get stored data
 const viewGames = () => {
   return $.ajax({
-    url: app.host + '/games/' + app.user.id,
+    url: app.host + '/games/',
     method: 'GET',
     headers: {
       Authorization: 'Token token=' + app.user.token,
     },
-  // data: data,
   });
 };
 

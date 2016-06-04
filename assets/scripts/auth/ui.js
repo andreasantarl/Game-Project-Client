@@ -25,6 +25,7 @@ $("#view-games").show();
 };
 
 const failure = (error) => {
+  console.table(app.user);
   console.error(error);
   //error message display on screen
 };
@@ -51,13 +52,15 @@ const returnGameId = function (){
   return gameIdentifier;
 };
 
-const getGames = function () {
-  let gamesPlayed = app.user.games.length;
+const getGames = function (data) {
+  let gamesPlayed = data.games.length;
+  console.log(gamesPlayed);
   // let  array = data.games;
   // for (let i = 0; i < gamesPlayed; i++){
 //    checkForWin(array[i].cells);
 //  };
-  $(".gameAggregate").text(gamesPlayed);
+  $(".gameAggregate").val(gamesPlayed);
+
 //  $(".")
 };
 
