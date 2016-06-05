@@ -4,7 +4,6 @@ const getFormFields = require('../../../lib/get-form-fields');
 
 const api = require('./api');
 const ui = require('./ui');
-//const app = require('../app.js');
 
 let gameBoard = ['', '', '', '', '', '', '', '', ''];
 let turn = 0;
@@ -21,12 +20,28 @@ $("#sign-up").hide();
 $("#new-game").hide();
 $("#view-games").hide();
 $(".next-player").hide();
+$(".changePasswordButton").hide();
+
+//game board starts as unclickable
+$(".box").addClass('noClick');
 
 $("#open-login").on("click", function(event){
   event.preventDefault();
+  $("#open-login").hide();
   $("#sign-in").show();
   $("#sign-up").show();
-  $("#open-login").hide();
+});
+
+$(".changePasswordButton").on("click", function (event) {
+  event.preventDefault();
+  $("#change-password").show();
+  $(".changePasswordButton").hide();
+});
+
+$(".changePasswordComplete").on("click", function (event) {
+  event.preventDefault();
+  $("#change-password").hide();
+  $(".changePasswordButton").show();
 });
 
 const onSignUp = function (event) {
@@ -62,8 +77,6 @@ const onChangePassword = function (event) {
 
 //alternate between x and o
 const setTurn = function () {
-  printResults = ("It is player o's move!");
-  $(".next-player").text(printResults);
     if (turn % 2 === 0 ) {
         move = 'x';
         player = "Player1";
@@ -73,12 +86,6 @@ const setTurn = function () {
         player = "Player2";
         nextPlayer = 'x';
       }
-      console.log(turn);
-      $(".box").on('click', function (player) {
-          player = nextPlayer;
-        printResults = ("It is player " + player + "'s move!");
-        $(".next-player").text(printResults);
-      });
     return move;
 };
 
@@ -87,7 +94,6 @@ const setGameArray = function (id, move) {
   let location = parseInt(id);
   let value = move;
   if (gameBoard[location] !== '') {
-    console.log(value + 'already has this spot!');
     } else {
       gameBoard[location] = value;
     }
@@ -96,7 +102,6 @@ const setGameArray = function (id, move) {
 
 //checks if a user has won the game
 const checkForWin = function (gameBoard) {
-  console.log('Gameboard' + gameBoard);
   if (
       ((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='x') ||
       ((gameBoard[3] === gameBoard[4]) && (gameBoard[5] === gameBoard[3]) && gameBoard[3] ==='x') ||
@@ -106,9 +111,10 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[2] === gameBoard[5]) && (gameBoard[8] === gameBoard[2]) && gameBoard[2] ==='x') ||
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='x') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='x')) {
-        console.log(gameBoard[0]);
           winner = true;
-          window.alert("Player X won the game!");
+                $(".next-player").hide();
+          $(".displayWinner").text("The winner is X!");
+        //  window.alert("Player X won the game!");
         } else if (((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[3] === gameBoard[4]) && (gameBoard[5] === gameBoard[3]) && gameBoard[3] ==='o') ||
       ((gameBoard[6] === gameBoard[7]) && (gameBoard[8] === gameBoard[6]) && gameBoard[6] ==='o') ||
@@ -118,10 +124,11 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='o')) {
           winner = true;
-          //div in HTML with this junk and then hide on document load and then show when win/loss/tie occurs
-           console.log("The winner is: o");
+                $(".next-player").hide();
+          $(".displayWinner").text("The winner is O!");
         } else if (gameBoard.indexOf('') === -1) {
-          window.alert("It's a tie!");
+                $(".next-player").hide();
+          $(".displayWinner").text("It's a tie!");
         } else {
 
         }
@@ -141,18 +148,24 @@ const onUpdateGames = function (gameMoveIndex, gameMove, gameOver) {
 const playerMove = function (event) {
     event.preventDefault();
     let move = setTurn();  //should be 'x' or 'o'
-
     if (winner) {
       $('.box').addClass('noClick');
     } else {
         if ($(this).hasClass('noClick')) {
-          console.log('cant click here');
+      //    console.log('cant click here');
         } else {
-          $(this).text(move);
+            if (move === 'x') {
+              $(this).append('<img src="/images/x-pink.jpg" height="100px">');
+              printResults = ("It is player o's move!");
+              $(".next-player").text(printResults);
+            } else {
+              $(this).append('<img src="/images/o-green.png" height="100px">');
+              printResults = ("It is player x's move!");
+              $(".next-player").text(printResults);
+            }
           $(event.target).addClass('noClick');
           let id = $(this).attr('id');
           turn++;
-
           setGameArray(id, move);
         }
         checkForWin(gameBoard);
@@ -163,16 +176,12 @@ const playerMove = function (event) {
 
   const onRestartGame = function (){
     winner = false;
-    console.log("winner: " + winner);
     gameBoard = ['', '', '', '', '', '', '', '', ''];
-    console.log("Gameboard after restart: " + gameBoard);
     turn = 0;
-    console.log("turn after restart: " + turn);
     move = '';
-    console.log("move after restart: " + move);
     player = '';
-    console.log("player after restart: " + player);
     arrayIndex = '';
+    $(".displayWinner").text("");
      $('.box').removeClass('noClick');
     if (!$(".box").text('')){
     } else {
@@ -194,7 +203,6 @@ const playerMove = function (event) {
     api.viewGames()
       .done(ui.getGames)
       .fail(ui.failure);
-          console.log(ui.getGames());
   };
 
 const addHandlers = () => {

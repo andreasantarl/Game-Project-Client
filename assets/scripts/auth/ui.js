@@ -6,53 +6,54 @@ const events = require ('./events.js');
 let gameIdentifier = 0;
 
 const success = (data) => {
-  if (data) {
-  console.log(data);
-} else {
-  console.log("WOOT!");
-}
 };
 
 const signUpSuccess = (data) => {
-  if (data) {
-  console.log(data);
-} else {
-  console.log("WOOT!");
-}
 $("#sign-up").hide();
 $("#sign-in").hide();
+$("#sign-out").show();
+$(".changePasswordButton").show();
 $("#new-game").show();
 $("#view-games").show();
 events.printResults = ("Let player x begin!");
-$(".next-player").show().text(events.printResults);
 };
 
 const failure = (error) => {
-  console.table(app.user);
-  console.error(error);
-  //error message display on screen
 };
 
 const signInSuccess = (data) => {
-  app.user = data.user;
-  console.log(app.user);
+   app.user = data.user;
   $("#sign-in").hide();
   $("#sign-up").hide();
+  $("#sign-out").show();
+  $(".changePasswordButton").show();
   $("#new-game").show();
   $("#view-games").show();
-  // events.printResults = ("Let player x begin!");
-  // $(".next-player").show().text(events.printResults);
 };
 
 const signOutSuccess = () => {
   app.user = null;
-  console.log(app);
+    $("#open-login").show();
+    $("#change-password").hide();
+    $("#sign-out").hide();
+    $("#sign-in").hide();
+    $("#sign-up").hide();
+    $("#new-game").hide();
+    $("#view-games").hide();
+    $(".changePasswordButton").hide();
+    $(".box").addClass('noClick');
+    if (!$(".box").text('')){
+    } else {
+      $(".box").text('');
+    }
+    $(".next-player").hide().text(events.printResults);
 };
 
 const createGameSuccess = (data) => {
   gameIdentifier = data.game.id;
   events.printResults = ("Let player x begin!");
   $(".next-player").show().text(events.printResults);
+    $(".box").removeClass('noClick');
 };
 
 const returnGameId = function (){
@@ -60,15 +61,9 @@ const returnGameId = function (){
 };
 
 const getGames = function (data) {
-  let gamesPlayed = data.games.length;
-  console.log(gamesPlayed);
-  // let  array = data.games;
-  // for (let i = 0; i < gamesPlayed; i++){
-//    checkForWin(array[i].cells);
-//  };
+  let gamesData = data;
+  let gamesPlayed = gamesData.games.length;
   $(".gameAggregate").val(gamesPlayed);
-
-//  $(".")
 };
 
 module.exports = {
