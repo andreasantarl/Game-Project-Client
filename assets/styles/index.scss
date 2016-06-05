@@ -27,17 +27,15 @@ $raspberry: #a92159;
 $dark-raspberry: #57102c;
 $yellow-green: #bcc747;
 
-
 body {
   background-color: $teal;
 }
 
 h1 {
   color: $white;
-    font-family: 'Dumb3', arial;
-    font-weight: bold;
-    font-size: 56px;
-    text-align: center;
+  font-family: 'Dumb3', arial;
+  font-size: 56px;
+  text-align: center;
 }
 
 .container {
@@ -46,20 +44,14 @@ h1 {
   font-family: 'Dumb2';
 }
 
-#open-login {
-  // @include col-lg-3;
-  // @include col-md-3;
-  // @include col-sm-3;
-  // @include col-xs-3;
-}
-
 input {
-    color: $dark-raspberry;
+  color: $dark-raspberry;
 }
 
 .btn {
   color: $dark-raspberry;
   font-family: 'Dumb3', arial;
+
 }
 
 .gameBoard {
@@ -88,7 +80,25 @@ input {
   }
 }
 
-// .box {
-//   margin: auto;
-//   vertical-align: middle;
-// }
+.btn-lg {
+  font-size: 30px;
+}
+
+.btn-default {
+  font-size: 24px;
+}
+
+.newGameBtn {
+  border: 2px solid $dark-raspberry;
+}
+
+.box {
+  margin: 0 auto;
+  vertical-align: middle;
+  display: block;
+}
+
+.next-player {
+  font-size: 24px;
+  text-align: center;
+}
