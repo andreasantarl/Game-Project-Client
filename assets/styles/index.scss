@@ -91,23 +91,25 @@ input {
   border: 2px solid $dark-raspberry;
 }
 
-.box {
+.box.img {
   margin: 0 auto;
-  vertical-align: middle;
-  display: block;
+  padding: 5px;
+  width: 50%;
 }
 
 .displayWinner {
   font-size: 24px;
+  font-weight: bold;
   text-align: center;
 }
 
 .next-player {
   font-size: 24px;
+  font-weight: bold;
   text-align: center;
 }
 
-.view-games{
+.view-games {
   display: inline-block;
 //  float: center;
   vertical-align: middle;

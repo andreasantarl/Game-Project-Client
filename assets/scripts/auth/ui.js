@@ -15,7 +15,7 @@ $("#sign-out").show();
 $(".changePasswordButton").show();
 $("#new-game").show();
 $("#view-games").show();
-events.printResults = ("Let player x begin!");
+events.printResults = ("Let player X begin!");
 };
 
 const failure = (error) => {
@@ -51,7 +51,7 @@ const signOutSuccess = () => {
 
 const createGameSuccess = (data) => {
   gameIdentifier = data.game.id;
-  events.printResults = ("Let player x begin!");
+  events.printResults = ("Let player X begin!");
   $(".next-player").show().text(events.printResults);
     $(".box").removeClass('noClick');
 };

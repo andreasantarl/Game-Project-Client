@@ -113,7 +113,7 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='x')) {
           winner = true;
                 $(".next-player").hide();
-          $(".displayWinner").text("The winner is X!");
+          $(".displayWinner").text("The winner is Player X!");
         //  window.alert("Player X won the game!");
         } else if (((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[3] === gameBoard[4]) && (gameBoard[5] === gameBoard[3]) && gameBoard[3] ==='o') ||
@@ -125,10 +125,10 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='o')) {
           winner = true;
                 $(".next-player").hide();
-          $(".displayWinner").text("The winner is O!");
+          $(".displayWinner").text("The winner is Player O!");
         } else if (gameBoard.indexOf('') === -1) {
                 $(".next-player").hide();
-          $(".displayWinner").text("It's a tie!");
+          $(".displayWinner").text("It's a tie, nerds!");
         } else {
 
         }
@@ -155,12 +155,12 @@ const playerMove = function (event) {
       //    console.log('cant click here');
         } else {
             if (move === 'x') {
-              $(this).append('<img src="/images/x-pink.jpg" height="100px">');
-              printResults = ("It is player o's move!");
+              $(this).append('<img src="/images/x-pink.jpg" width="75%">');
+              printResults = ("It is player O's move!");
               $(".next-player").text(printResults);
             } else {
-              $(this).append('<img src="/images/o-green.png" height="100px">');
-              printResults = ("It is player x's move!");
+              $(this).append('<img src="/images/o-green.png" width="120%">');
+              printResults = ("It is player X's move!");
               $(".next-player").text(printResults);
             }
           $(event.target).addClass('noClick');
