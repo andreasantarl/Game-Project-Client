@@ -77,8 +77,6 @@ const onChangePassword = function (event) {
 
 //alternate between x and o
 const setTurn = function () {
-  printResults = ("It is player O's move!");
-  $(".next-player").text(printResults);
     if (turn % 2 === 0 ) {
         move = 'x';
         player = "Player1";
@@ -88,11 +86,6 @@ const setTurn = function () {
         player = "Player2";
         nextPlayer = 'x';
       }
-      $(".box").on('click', function (player) {
-        player = nextPlayer;
-        printResults = ("It is player " + player + "'s move!");
-        $(".next-player").text(printResults);
-      });
     return move;
 };
 
@@ -119,7 +112,8 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='x') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='x')) {
           winner = true;
-          window.alert("Player X won the game!");
+          $(".displayWinner").text("The winner is X!");
+        //  window.alert("Player X won the game!");
         } else if (((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[3] === gameBoard[4]) && (gameBoard[5] === gameBoard[3]) && gameBoard[3] ==='o') ||
       ((gameBoard[6] === gameBoard[7]) && (gameBoard[8] === gameBoard[6]) && gameBoard[6] ==='o') ||
@@ -129,10 +123,9 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='o')) {
           winner = true;
-          //div in HTML with this junk and then hide on document load and then show when win/loss/tie occurs
-           window.alert("Player O won the game!");
+          $(".displayWinner").text("The winner is O!");
         } else if (gameBoard.indexOf('') === -1) {
-          window.alert("It's a tie!");
+          $(".displayWinner").text("It's a tie!");
         } else {
 
         }
@@ -154,14 +147,19 @@ const playerMove = function (event) {
     let move = setTurn();  //should be 'x' or 'o'
     if (winner) {
       $('.box').addClass('noClick');
+      $(".next-player").hide();
     } else {
         if ($(this).hasClass('noClick')) {
       //    console.log('cant click here');
         } else {
             if (move === 'x') {
               $(this).append('<img src="/images/x-pink.jpg" height="100px">');
+              printResults = ("It is player o's move!");
+              $(".next-player").text(printResults);
             } else {
               $(this).append('<img src="/images/o-green.png" height="100px">');
+              printResults = ("It is player x's move!");
+              $(".next-player").text(printResults);
             }
           $(event.target).addClass('noClick');
           let id = $(this).attr('id');
@@ -181,6 +179,7 @@ const playerMove = function (event) {
     move = '';
     player = '';
     arrayIndex = '';
+    $(".displayWinner").text("");
      $('.box').removeClass('noClick');
     if (!$(".box").text('')){
     } else {
