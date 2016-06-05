@@ -1,9 +1,9 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/';
-//@import 'fonts/3Dumb 2/2Dumb.ttf';
+
 @font-face {
   font-family: 'Dumb3';
-  src: url('./fonts/3Dumb 2/3Dumb.ttf');
+  src: url('fonts/3Dumb 2/3Dumb.ttf');
 }
 
 @font-face {
@@ -39,9 +39,9 @@ h1 {
 }
 
 .container {
+  font-family: 'Dumb2';
   margin: auto 25%;
   width: 50%;
-  font-family: 'Dumb2';
 }
 
 input {
@@ -51,7 +51,6 @@ input {
 .btn {
   color: $dark-raspberry;
   font-family: 'Dumb3', arial;
-
 }
 
 .gameBoard {
@@ -98,7 +97,18 @@ input {
   display: block;
 }
 
+.displayWinner {
+  font-size: 24px;
+  text-align: center;
+}
+
 .next-player {
   font-size: 24px;
   text-align: center;
+}
+
+.view-games{
+  display: inline-block;
+//  float: center;
+  vertical-align: middle;
 }
