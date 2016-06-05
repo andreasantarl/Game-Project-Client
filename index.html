@@ -5,22 +5,27 @@
 
       <script src="vendor.bundle.js" type="text/javascript" charset="utf-8" defer></script>
       <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
+      <script src="./assets/scripts/styles/styles.css" type="text/css" charset="utf-8" defer></script>
     </head>
     <body class="container">
-      <form id="open-login">
-        <input class="btn btn-default" type="submit" name="submit" value="Sign up or sign in!">
-      </form>
-      <form id="sign-up">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"></div>
+        <form id="open-login" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <input class="btn btn-default btn-lg" type="submit" name="submit" value="Sign up or sign in!">
+        </form>
+      </div>
+
+      <form id="sign-up" class="row">
         <fieldset>
           <legend>Sign up!</legend>
-          <input type="text" name="credentials[email]" placeholder="Email">
-          <input type="password" name="credentials[password]" placeholder="Password">
-          <input type="password" name="credentials[password_confirmation]" placeholder="Password confirm">
-          <input class="btn btn-default" type="submit" name="submit" value="Sign up!">
+          <input class="col-lg-3 col-md-3 col-sm-3 col-xs-3" type="text" name="credentials[email]" placeholder="Email">
+          <input class="col-lg-3 col-md-3 col-sm-3 col-xs-3"  type="password" name="credentials[password]" placeholder="Password">
+          <input class="col-lg-4 col-md-4 col-sm-4 col-xs-4" type="password" name="credentials[password_confirmation]" placeholder="Password confirm">
+          <input class="btn btn-default col-lg-2 col-md-2 col-sm-2 col-xs-2" type="submit" name="submit" value="Sign up!">
         </fieldset>
       </form>
-
-      <form id="sign-in">
+      <br>
+      <form id="sign-in" class="row">
         <fieldset>
           <legend>Sign in!</legend>
           <input type="text" name="credentials[email]" placeholder="Email">
@@ -28,31 +33,48 @@
           <input class="btn btn-default" type="submit" name="submit" value="Sign in!">
         </fieldset>
       </form>
-      <br>
-      <form id="sign-out">
-          <input class="btn btn-default" type="submit" name="submit" value="Sign out!">
-      </form>
 
-      <form id="change-password">
+      <br>
+      <div>
+      <div class="row col-lg-10 col-md-10 col-sm-10 col-xs-10"></div>
+        <form id="sign-out" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <input class="btn btn-default" type="submit" name="submit" value="Sign out!">
+        </form>
+      </div>
+      <br>
+      <div class="row">
+        <div class="row col-lg-9 col-md-9 col-sm-9 col-xs-9"></div>
+        <input class="changePasswordButton btn btn-default col-lg-3 col-md-3 col-sm-3 col-xs-3" type="submit" name="submit" value="Change Password">
+
+      <form id="change-password" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <fieldset>
           <legend>Change password</legend>
           <input type="text" name="passwords[old]" placeholder="Old password">
           <input type="password" name="passwords[new]" placeholder="New password">
-          <input class="btn btn-default" type="submit" name="submit" value="Change password!">
+          <input class="changePasswordComplete btn btn-default" type="submit" name="submit" value="Change password!">
         </fieldset>
       </form>
+     </div>
 
-      <h1>Here's a game!</h1>
-      <form id="new-game">
+     <div class="row">
+      <form id="new-game" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <input class="btn btn-default" type="submit" name="submit" value="Play a game!">
       </form>
-      <form id="view-games">
+    </div>
+
+    <div class="row">
+      <form id="view-games" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <input class="btn btn-default" type="submit" name="submit" value="View your stats">
+        <br>
         Games Played: <input type="text" name="getGames" class="gameAggregate">
       </form>
-      <div class="next-player">
+      <div class="next-player row col-lg-8 col-md-8 col-sm-8 col-xs-8">
       </div>
-      <h1>Play a game!</h1>
+    </div>
+
+    <div class="row"><br>
+      <h1>Play Tic-Tac-Toe!</h1>
+
       <div class="gameBoard">
         <div class="box" id="0"></div>
         <div class="box" id="1"></div>
@@ -64,5 +86,6 @@
         <div class="box" id="7"></div>
         <div class="box" id="8"></div>
       </div>
+    </div>
     </body>
 </html>

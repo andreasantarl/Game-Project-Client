@@ -21,6 +21,7 @@ $("#sign-up").hide();
 $("#new-game").hide();
 $("#view-games").hide();
 $(".next-player").hide();
+$(".changePasswordButton").hide();
 
 $("#open-login").on("click", function(event){
   event.preventDefault();
@@ -28,6 +29,19 @@ $("#open-login").on("click", function(event){
   $("#sign-in").show();
   $("#sign-up").show();
 });
+
+$(".changePasswordButton").on("click", function (event) {
+  event.preventDefault();
+  $("#change-password").show();
+  $(".changePasswordButton").hide();
+});
+
+$(".changePasswordComplete").on("click", function (event) {
+  event.preventDefault();
+  $("#change-password").hide();
+  $(".changePasswordButton").show();
+})
+
 
 const onSignUp = function (event) {
   event.preventDefault();
@@ -149,7 +163,12 @@ const playerMove = function (event) {
         if ($(this).hasClass('noClick')) {
           console.log('cant click here');
         } else {
-          $(this).text(move);
+            if (move === 'x') {
+              $(this).append('<img src="/images/x-blue.png" height="100px">');
+            } else {
+              $(this).append('<img src="/images/o-orange.png" height="100px">');
+            }
+        //    $(this).text(move);
           $(event.target).addClass('noClick');
           let id = $(this).attr('id');
           turn++;

@@ -21,13 +21,16 @@ const signUpSuccess = (data) => {
 // }
 $("#sign-up").hide();
 $("#sign-in").hide();
-$("#change-password").show();
+
 $("#sign-out").show();
+$(".changePasswordButton").show();
 $("#new-game").show();
 $("#view-games").show();
 events.printResults = ("Let player x begin!");
 $(".next-player").show().text(events.printResults);
 };
+
+
 
 const failure = (error) => {
   console.table(app.user);
@@ -40,8 +43,9 @@ const signInSuccess = (data) => {
   // console.log(app.user);
   $("#sign-in").hide();
   $("#sign-up").hide();
-  $("#change-password").show();
+  //$("#change-password").hide();
   $("#sign-out").show();
+  $(".changePasswordButton").show();
   $("#new-game").show();
   $("#view-games").show();
   // events.printResults = ("Let player x begin!");
@@ -58,6 +62,7 @@ const signOutSuccess = () => {
     $("#sign-up").hide();
     $("#new-game").hide();
     $("#view-games").hide();
+    $(".changePasswordButton").hide();
 };
 
 const createGameSuccess = (data) => {
