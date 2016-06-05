@@ -1,6 +1,7 @@
 'use strict';
 
 const app = require ('../app.js');
+const events = require ('./events.js');
 
 let gameIdentifier = 0;
 
@@ -22,6 +23,8 @@ $("#sign-up").hide();
 $("#sign-in").hide();
 $("#new-game").show();
 $("#view-games").show();
+events.printResults = ("Let player x begin!");
+$(".next-player").show().text(events.printResults);
 };
 
 const failure = (error) => {
@@ -37,6 +40,8 @@ const signInSuccess = (data) => {
   $("#sign-up").hide();
   $("#new-game").show();
   $("#view-games").show();
+  // events.printResults = ("Let player x begin!");
+  // $(".next-player").show().text(events.printResults);
 };
 
 const signOutSuccess = () => {
@@ -46,6 +51,8 @@ const signOutSuccess = () => {
 
 const createGameSuccess = (data) => {
   gameIdentifier = data.game.id;
+  events.printResults = ("Let player x begin!");
+  $(".next-player").show().text(events.printResults);
 };
 
 const returnGameId = function (){
