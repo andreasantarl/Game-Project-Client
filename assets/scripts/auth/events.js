@@ -24,9 +24,9 @@ $(".next-player").hide();
 
 $("#open-login").on("click", function(event){
   event.preventDefault();
+  $("#open-login").hide();
   $("#sign-in").show();
   $("#sign-up").show();
-  $("#open-login").hide();
 });
 
 const onSignUp = function (event) {
@@ -43,6 +43,7 @@ const onSignIn = function (event) {
   api.signIn(data)
     .done(ui.signInSuccess)
     .fail(ui.failure);
+
 };
 
 const onSignOut = function (event) {
