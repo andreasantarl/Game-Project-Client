@@ -112,6 +112,7 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='x') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='x')) {
           winner = true;
+                $(".next-player").hide();
           $(".displayWinner").text("The winner is X!");
         //  window.alert("Player X won the game!");
         } else if (((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='o') ||
@@ -123,8 +124,10 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='o')) {
           winner = true;
+                $(".next-player").hide();
           $(".displayWinner").text("The winner is O!");
         } else if (gameBoard.indexOf('') === -1) {
+                $(".next-player").hide();
           $(".displayWinner").text("It's a tie!");
         } else {
 
@@ -147,7 +150,6 @@ const playerMove = function (event) {
     let move = setTurn();  //should be 'x' or 'o'
     if (winner) {
       $('.box').addClass('noClick');
-      $(".next-player").hide();
     } else {
         if ($(this).hasClass('noClick')) {
       //    console.log('cant click here');
