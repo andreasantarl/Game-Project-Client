@@ -1,12 +1,116 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/';
 
+@font-face {
+  font-family: 'Dumb3';
+  src: url('fonts/3Dumb 2/3Dumb.ttf');
+}
+
+@font-face {
+  font-family: 'Dumb2';
+  src: url('fonts/3Dumb 2/2Dumb.ttf');
+}
+
+$black: #000;
+$beige: #fafaed;
+$teal: #4ca8a1;
+$dark-beige: #f5f5dc;
+$light-orange: #f6b563;
+$light-blue: #72cbdb;
+$dark-blue: #003a6f;
+$light-gray: #f2f1f1;
+$salmon: #ff5959;
+$white: #fff;
+$dark-purple: #55134e;
+$light-purple: #a0596b;
+$raspberry: #a92159;
+$dark-raspberry: #57102c;
+$yellow-green: #bcc747;
+
+body {
+  background-color: $teal;
+}
+
+h1 {
+  color: $white;
+  font-family: 'Dumb3', arial;
+  font-size: 56px;
+  text-align: center;
+}
+
+.container {
+  font-family: 'Dumb2';
+  margin: auto 25%;
+  width: 50%;
+}
+
+input {
+  color: $dark-raspberry;
+}
+
+.btn {
+  color: $dark-raspberry;
+  font-family: 'Dumb3', arial;
+}
 
 .gameBoard {
+  background-color: $white;
+  border: 5px solid $raspberry;
   @include make-row();
   .box {
+    @include make-lg-column(4);
+    @include make-md-column(4);
+    @include make-sm-column(4);
     @include make-xs-column(4);
-    border: 1px solid #000;
-    height: 100px;
+    border: 5px solid $raspberry;
+    height: 16.666vw;
+    margin: auto;
+    vertical-align: middle;
   }
+}
+
+@media (max-width: 992px) {
+  .container {
+    margin: auto 5%;
+    width: 90%;
+    & .box {
+      height: 30vw;
+    }
+  }
+}
+
+.btn-lg {
+  font-size: 30px;
+}
+
+.btn-default {
+  font-size: 24px;
+}
+
+.newGameBtn {
+  border: 2px solid $dark-raspberry;
+}
+
+.box.img {
+  margin: 0 auto;
+  padding: 5px;
+  width: 50%;
+}
+
+.displayWinner {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.next-player {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.view-games {
+  display: inline-block;
+//  float: center;
+  vertical-align: middle;
 }

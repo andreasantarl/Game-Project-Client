@@ -4,7 +4,6 @@ const getFormFields = require('../../../lib/get-form-fields');
 
 const api = require('./api');
 const ui = require('./ui');
-//const app = require('../app.js');
 
 let gameBoard = ['', '', '', '', '', '', '', '', ''];
 let turn = 0;
@@ -12,12 +11,44 @@ let move = '';
 let player = '';
 let winner = false;
 let arrayIndex = '';
+let printResults = '';
+let nextPlayer = 'x';
+$("#change-password").hide();
+$("#sign-out").hide();
+$("#sign-in").hide();
+$("#sign-up").hide();
+$("#new-game").hide();
+$("#view-games").hide();
+$(".next-player").hide();
+$(".changePasswordButton").hide();
+
+//game board starts as unclickable
+$(".box").addClass('noClick');
+
+$("#open-login").on("click", function(event){
+  event.preventDefault();
+  $("#open-login").hide();
+  $("#sign-in").show();
+  $("#sign-up").show();
+});
+
+$(".changePasswordButton").on("click", function (event) {
+  event.preventDefault();
+  $("#change-password").show();
+  $(".changePasswordButton").hide();
+});
+
+$(".changePasswordComplete").on("click", function (event) {
+  event.preventDefault();
+  $("#change-password").hide();
+  $(".changePasswordButton").show();
+});
 
 const onSignUp = function (event) {
   event.preventDefault();
   let data = getFormFields(event.target);
   api.signUp(data)
-    .done(ui.success)
+    .done(ui.signUpSuccess)
     .fail(ui.failure);
 };
 
@@ -44,26 +75,17 @@ const onChangePassword = function (event) {
     .fail(ui.failure);
 };
 
-// const onViewGames = function (event) {
-//   event.preventDefault();
-//   //console.table(data);
-//   let data = getFormFields(event.target);
-//   api.viewGames(data)
-//     .done(ui.displayGames)
-//     .fail(ui.failure);
-// };
-
 //alternate between x and o
 const setTurn = function () {
     if (turn % 2 === 0 ) {
         move = 'x';
         player = "Player1";
+        nextPlayer = 'o';
       } else {
         move = 'o';
         player = "Player2";
+        nextPlayer = 'x';
       }
-    //  turn++;
-      console.log(turn);
     return move;
 };
 
@@ -72,18 +94,14 @@ const setGameArray = function (id, move) {
   let location = parseInt(id);
   let value = move;
   if (gameBoard[location] !== '') {
-    console.log(value + 'already has this spot!');
     } else {
       gameBoard[location] = value;
     }
-//    return location;
   arrayIndex = gameBoard[location];
 };
 
 //checks if a user has won the game
 const checkForWin = function (gameBoard) {
-//  event.preventDefault();
-  console.log('Gameboard' + gameBoard);
   if (
       ((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='x') ||
       ((gameBoard[3] === gameBoard[4]) && (gameBoard[5] === gameBoard[3]) && gameBoard[3] ==='x') ||
@@ -93,11 +111,10 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[2] === gameBoard[5]) && (gameBoard[8] === gameBoard[2]) && gameBoard[2] ==='x') ||
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='x') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='x')) {
-        console.log(gameBoard[0]);
           winner = true;
-          window.alert("Player X won the game!");
-          // console.log("The winner is: x");
-          // console.log("Winner value " + winner);
+                $(".next-player").hide();
+          $(".displayWinner").text("The winner is Player X!");
+        //  window.alert("Player X won the game!");
         } else if (((gameBoard[0] === gameBoard[1]) && (gameBoard[2] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[3] === gameBoard[4]) && (gameBoard[5] === gameBoard[3]) && gameBoard[3] ==='o') ||
       ((gameBoard[6] === gameBoard[7]) && (gameBoard[8] === gameBoard[6]) && gameBoard[6] ==='o') ||
@@ -107,25 +124,21 @@ const checkForWin = function (gameBoard) {
       ((gameBoard[0] === gameBoard[4]) && (gameBoard[8] === gameBoard[0]) && gameBoard[0] ==='o') ||
       ((gameBoard[2] === gameBoard[4]) && (gameBoard[6] === gameBoard[2]) && gameBoard[2] ==='o')) {
           winner = true;
-          //div in HTML with this junk and then hide on document load and then show when win/loss/tie occurs
-           console.log("The winner is: o");
+                $(".next-player").hide();
+          $(".displayWinner").text("The winner is Player O!");
         } else if (gameBoard.indexOf('') === -1) {
-          window.alert("It's a tie!");
+                $(".next-player").hide();
+          $(".displayWinner").text("It's a tie, nerds!");
         } else {
 
         }
 };
 
-
 const onUpdateGames = function (gameMoveIndex, gameMove, gameOver) {
   gameMove = move;
-  // gameMoveIndex = setGameArray();
-  //find index of array
   gameMoveIndex = arrayIndex;
   gameOver = winner;
   event.preventDefault();
-  //console.table(data);
-  //let data = getFormFields(event.target);
   api.updateGames(gameMoveIndex, gameMove, gameOver)
     .done(ui.displayGames)
     .fail(ui.failure);
@@ -135,87 +148,57 @@ const onUpdateGames = function (gameMoveIndex, gameMove, gameOver) {
 const playerMove = function (event) {
     event.preventDefault();
     let move = setTurn();  //should be 'x' or 'o'
-    console.log("move " + move);
     if (winner) {
       $('.box').addClass('noClick');
     } else {
         if ($(this).hasClass('noClick')) {
-          console.log('cant click here');
+      //    console.log('cant click here');
         } else {
-          $(this).text(move);
+            if (move === 'x') {
+              $(this).append('<img src="/images/x-pink.jpg" width="75%">');
+              printResults = ("It is player O's move!");
+              $(".next-player").text(printResults);
+            } else {
+              $(this).append('<img src="/images/o-green.png" width="120%">');
+              printResults = ("It is player X's move!");
+              $(".next-player").text(printResults);
+            }
           $(event.target).addClass('noClick');
           let id = $(this).attr('id');
           turn++;
           setGameArray(id, move);
         }
         checkForWin(gameBoard);
-        // console.log("gameBoard after move " + gameBoard);
-          //set value for ID of game, array value, if game is over or not
     }
-    //
-    // const onUpdateGames = function (gameMoveIndex, gameMove, gameOver) {
-    //   gameMove = move;
-    //   gameMoveIndex = setGameArray();
-    //   gameOver = winner;
-    //   event.preventDefault();
-    //   //console.table(data);
-    //   //let data = getFormFields(event.target);
-    //   api.viewGames(gameMoveIndex, gameMove, gameOver)
-    //     .done(ui.displayGames)
-    //     .fail(ui.failure);
-    // };
     onUpdateGames(setGameArray, move, winner);
-    //gameMoveIndex, gameMove, gameOver
+    printResults = '';
   };
-
-
 
   const onRestartGame = function (){
     winner = false;
-       console.log("winner: " + winner);
     gameBoard = ['', '', '', '', '', '', '', '', ''];
-    console.log("Gameboard after restart: " + gameBoard);
     turn = 0;
-    console.log("turn after restart: " + turn);
     move = '';
-    console.log("move after restart: " + move);
     player = '';
-    console.log("player after restart: " + player);
     arrayIndex = '';
-    // $(".box").on('click');
-//   $('.box').on('click', playerMove);
+    $(".displayWinner").text("");
      $('.box').removeClass('noClick');
     if (!$(".box").text('')){
-    //  $('.box').on('click', playerMove);
-      //    $('.box').on('click', playerMove);
-      // $('#1').on('click', playerMove);
-      // $('#2').on('click', playerMove);
-      // $('#3').on('click', playerMove);
-      // $('#4').on('click', playerMove);
-      // $('#5').on('click', playerMove);
-      // $('#6').on('click', playerMove);
-      // $('#7').on('click', playerMove);
-      // $('#8').on('click', playerMove);
-   } else {
+    } else {
       $(".box").text('');
-          //  $('.box').on('click', playerMove);
     }
-
-
-//   playerMove();
   };
 
   //create new game
   const onNewGame = function (event) {
     event.preventDefault();
-    //let data = getFormFields(event.target);
     api.newGame()
       .done(ui.createGameSuccess)
       .then(onRestartGame())
       .fail(ui.failure);
-      // onRestartGame();
   };
 
+<<<<<<< HEAD
   const onViewGames = function (event) {
     event.preventDefault();
     api.gamesPlayed()
@@ -223,9 +206,16 @@ const playerMove = function (event) {
     .fail(ui.failure);
   }
 
+=======
+  const onViewGames = function () {
+    event.preventDefault();
+    api.viewGames()
+      .done(ui.getGames)
+      .fail(ui.failure);
+  };
+>>>>>>> master
 
 const addHandlers = () => {
-    //$('#restart-game').on('click', onRestartGame);
   $('#sign-up').on('submit', onSignUp);
   $('#sign-in').on('submit', onSignIn);
   $('#sign-out').on('submit', onSignOut);
