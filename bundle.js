@@ -171,11 +171,11 @@ webpackJsonp([0],[
 	      //    console.log('cant click here');
 	    } else {
 	        if (move === 'x') {
-	          $(this).append('<img src="/images/x-pink.jpg" width="75%">');
+	          $(this).append('<img src="./images/x-pink.jpg" width="75%">');
 	          printResults = "It is player O's move!";
 	          $(".next-player").text(printResults);
 	        } else {
-	          $(this).append('<img src="/images/o-green.png" width="120%">');
+	          $(this).append('<img src="./images/o-green.png" width="120%">');
 	          printResults = "It is player X's move!";
 	          $(".next-player").text(printResults);
 	        }
