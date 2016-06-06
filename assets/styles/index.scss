@@ -44,6 +44,21 @@ h1 {
   width: 50%;
 }
 
+#sign-out {
+  top: -70px;
+  right: -200px;
+}
+
+.changePasswordButton {
+  top: -80px;
+  right: -180px;
+}
+
+.change-password-block {
+  position: relative;
+  top: -60px;
+}
+
 input {
   color: $dark-raspberry;
 }
@@ -55,13 +70,15 @@ input {
 
 .gameBoard {
   background-color: $white;
-  border: 5px solid $raspberry;
+  position: relative;
+  top: -50px;
   @include make-row();
   .box {
     @include make-lg-column(4);
     @include make-md-column(4);
     @include make-sm-column(4);
     @include make-xs-column(4);
+      background-color: $white;
     border: 5px solid $raspberry;
     height: 16.666vw;
     margin: auto;
@@ -79,8 +96,8 @@ input {
   }
 }
 
-.btn-lg {
-  font-size: 30px;
+.start{
+  font-size: 35px;
 }
 
 .btn-default {
@@ -88,29 +105,42 @@ input {
 }
 
 .newGameBtn {
-  border: 2px solid $dark-raspberry;
+  border: 4px solid $dark-raspberry;
+  font-family: "Dumb2";
+  margin: 0 auto;
+  width: 60%;
+  height: 20%;
+  font-size: 40px;
+  position: relative;
+  top: -50px;
 }
 
-.box.img {
-  margin: 0 auto;
-  padding: 5px;
-  width: 50%;
+.gameName {
+  position: relative;
+  top: -60px;
 }
 
 .displayWinner {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+  position: relative;
+  top: -50px;
 }
 
 .next-player {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+  position: relative;
+  top: -50px;
 }
 
 .view-games {
   display: inline-block;
 //  float: center;
+  position: relative;
   vertical-align: middle;
+  top: 20px;
+  right: 240px;
 }
