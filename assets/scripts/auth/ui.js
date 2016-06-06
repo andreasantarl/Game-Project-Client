@@ -10,12 +10,7 @@ const success = (data) => {
 
 const signUpSuccess = (data) => {
 $("#sign-up").hide();
-$("#sign-in").hide();
-$("#sign-out").show();
-$(".changePasswordButton").show();
-$("#new-game").show();
-$("#view-games").show();
-events.printResults = ("Let player X begin!");
+$("#sign-in").show();
 };
 
 const failure = (error) => {
@@ -29,6 +24,7 @@ const signInSuccess = (data) => {
   $(".changePasswordButton").show();
   $("#new-game").show();
   $("#view-games").show();
+  events.printResults = ("Let player X begin!");
 };
 
 const signOutSuccess = () => {
