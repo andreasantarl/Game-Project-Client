@@ -6,6 +6,11 @@ const events = require ('./events.js');
 let gameIdentifier = 0;
 
 const success = (data) => {
+  //console.log("good job!");
+};
+
+const onChangePasswordSuccess = () => {
+  $("#change-password").hide();
 };
 
 const signUpSuccess = (data) => {
@@ -14,6 +19,7 @@ $("#sign-in").show();
 };
 
 const failure = (error) => {
+//  console.log("Wrong");
 };
 
 const signInSuccess = (data) => {
@@ -62,6 +68,10 @@ const getGames = function (data) {
   $(".gameAggregate").val(gamesPlayed);
 };
 
+const displayGames = (data) => {
+
+};
+
 module.exports = {
   failure,
   success,
@@ -71,4 +81,6 @@ module.exports = {
   createGameSuccess,
   returnGameId,
   getGames,
+  onChangePasswordSuccess,
+  displayGames,
 };
