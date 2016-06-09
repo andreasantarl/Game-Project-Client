@@ -170,11 +170,12 @@ webpackJsonp([0],[
 	        $(event.target).addClass('noClick');
 	        var id = $(this).attr('id');
 	        turn++;
+	        onUpdateGames(setGameArray, move, winner);
+
 	        setGameArray(id, move);
 	      }
 	    checkForWin(gameBoard);
 	  }
-	  onUpdateGames(setGameArray, move, winner);
 	  printResults = '';
 	};
 
@@ -480,6 +481,8 @@ webpackJsonp([0],[
 	  $(".gameAggregate").val(gamesPlayed);
 	};
 
+	var displayGames = function displayGames(data) {};
+
 	module.exports = {
 	  failure: failure,
 	  success: success,
@@ -489,7 +492,8 @@ webpackJsonp([0],[
 	  createGameSuccess: createGameSuccess,
 	  returnGameId: returnGameId,
 	  getGames: getGames,
-	  onChangePasswordSuccess: onChangePasswordSuccess
+	  onChangePasswordSuccess: onChangePasswordSuccess,
+	  displayGames: displayGames
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
