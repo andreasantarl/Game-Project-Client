@@ -76,18 +76,6 @@ webpackJsonp([0],[
 	  $("#sign-up").show();
 	});
 
-	$(".changePasswordButton").on("click", function (event) {
-	  event.preventDefault();
-	  $("#change-password").show();
-	  $(".changePasswordButton").hide();
-	});
-
-	$(".changePasswordComplete").on("click", function (event) {
-	  event.preventDefault();
-	  $("#change-password").hide();
-	  $(".changePasswordButton").show();
-	});
-
 	var onSignUp = function onSignUp(event) {
 	  event.preventDefault();
 	  var data = getFormFields(event.target);
@@ -100,15 +88,15 @@ webpackJsonp([0],[
 	  api.signIn(data).done(ui.signInSuccess).fail(ui.failure);
 	};
 
-	var onSignOut = function onSignOut(event) {
-	  event.preventDefault();
-	  api.signOut().done(ui.signOutSuccess).fail(ui.failure);
-	};
-
 	var onChangePassword = function onChangePassword(event) {
 	  event.preventDefault();
 	  var data = getFormFields(event.target);
-	  api.changePassword(data).done(ui.success).fail(ui.failure);
+	  api.changePassword(data).done(ui.onChangePasswordSuccess).fail(ui.failure);
+	};
+
+	var onSignOut = function onSignOut(event) {
+	  event.preventDefault();
+	  api.signOut().done(ui.signOutSuccess).fail(ui.failure);
 	};
 
 	//alternate between x and o
@@ -215,11 +203,16 @@ webpackJsonp([0],[
 	  api.viewGames().done(ui.getGames).fail(ui.failure);
 	};
 
+	var showChangePassword = function showChangePassword() {
+	  $('#change-password').show();
+	};
+
 	var addHandlers = function addHandlers() {
 	  $('#sign-up').on('submit', onSignUp);
 	  $('#sign-in').on('submit', onSignIn);
 	  $('#sign-out').on('submit', onSignOut);
 	  $('#change-password').on('submit', onChangePassword);
+	  $('.changePasswordButton').on('click', showChangePassword);
 	  $('#new-game').on('submit', onNewGame);
 	  $('#view-games').on('submit', onViewGames);
 	  $('#0').on('click', playerMove);
@@ -425,14 +418,22 @@ webpackJsonp([0],[
 
 	var gameIdentifier = 0;
 
-	var success = function success(data) {};
+	var success = function success(data) {
+	  //console.log("good job!");
+	};
+
+	var onChangePasswordSuccess = function onChangePasswordSuccess() {
+	  $("#change-password").hide();
+	};
 
 	var signUpSuccess = function signUpSuccess(data) {
 	  $("#sign-up").hide();
 	  $("#sign-in").show();
 	};
 
-	var failure = function failure(error) {};
+	var failure = function failure(error) {
+	  console.log("Wrong");
+	};
 
 	var signInSuccess = function signInSuccess(data) {
 	  app.user = data.user;
@@ -487,7 +488,8 @@ webpackJsonp([0],[
 	  signOutSuccess: signOutSuccess,
 	  createGameSuccess: createGameSuccess,
 	  returnGameId: returnGameId,
-	  getGames: getGames
+	  getGames: getGames,
+	  onChangePasswordSuccess: onChangePasswordSuccess
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
