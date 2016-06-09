@@ -19,7 +19,7 @@ $("#sign-in").show();
 };
 
 const failure = (error) => {
-  console.log("Wrong");
+//  console.log("Wrong");
 };
 
 const signInSuccess = (data) => {
