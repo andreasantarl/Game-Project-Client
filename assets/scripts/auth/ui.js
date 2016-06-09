@@ -9,6 +9,10 @@ const success = (data) => {
   //console.log("good job!");
 };
 
+const onChangePasswordSuccess = () => {
+  $("#change-password").hide();
+};
+
 const signUpSuccess = (data) => {
 $("#sign-up").hide();
 $("#sign-in").show();
@@ -73,4 +77,5 @@ module.exports = {
   createGameSuccess,
   returnGameId,
   getGames,
+  onChangePasswordSuccess,
 };
