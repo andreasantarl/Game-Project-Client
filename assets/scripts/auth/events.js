@@ -156,11 +156,12 @@ const playerMove = function (event) {
           $(event.target).addClass('noClick');
           let id = $(this).attr('id');
           turn++;
+          onUpdateGames(setGameArray, move, winner);
+
           setGameArray(id, move);
         }
         checkForWin(gameBoard);
     }
-    onUpdateGames(setGameArray, move, winner);
     printResults = '';
   };
 

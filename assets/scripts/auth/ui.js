@@ -68,6 +68,10 @@ const getGames = function (data) {
   $(".gameAggregate").val(gamesPlayed);
 };
 
+const displayGames = (data) => {
+
+};
+
 module.exports = {
   failure,
   success,
@@ -78,4 +82,5 @@ module.exports = {
   returnGameId,
   getGames,
   onChangePasswordSuccess,
+  displayGames,
 };
