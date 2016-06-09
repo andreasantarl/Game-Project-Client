@@ -6,6 +6,7 @@ const events = require ('./events.js');
 let gameIdentifier = 0;
 
 const success = (data) => {
+  //console.log("good job!");
 };
 
 const signUpSuccess = (data) => {
@@ -14,6 +15,7 @@ $("#sign-in").show();
 };
 
 const failure = (error) => {
+  console.log("Wrong");
 };
 
 const signInSuccess = (data) => {

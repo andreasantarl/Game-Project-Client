@@ -32,17 +32,17 @@ $("#open-login").on("click", function(event){
   $("#sign-up").show();
 });
 
-$(".changePasswordButton").on("click", function (event) {
-  event.preventDefault();
-  $("#change-password").show();
-  $(".changePasswordButton").hide();
-});
+// $(".changePasswordButton").on("click", function (event) {
+//   event.preventDefault();
+//   $("#change-password").show();
+  // $(".changePasswordButton").hide();
+// });
 
-$(".changePasswordComplete").on("click", function (event) {
-  event.preventDefault();
-  $("#change-password").hide();
-  $(".changePasswordButton").show();
-});
+// $(".changePasswordComplete").on("click", function (event) {
+//   event.preventDefault();
+//   // $("#change-password").hide();
+//   $(".changePasswordButton").show();
+// });
 
 const onSignUp = function (event) {
   event.preventDefault();
@@ -60,18 +60,19 @@ const onSignIn = function (event) {
     .fail(ui.failure);
 };
 
+
+  const onChangePassword = function (event) {
+    event.preventDefault();
+    let data = getFormFields(event.target);
+    api.changePassword(data)
+      .done(ui.success)
+      .fail(ui.failure);
+  };
+
 const onSignOut = function (event) {
   event.preventDefault();
   api.signOut()
     .done(ui.signOutSuccess)
-    .fail(ui.failure);
-};
-
-const onChangePassword = function (event) {
-  event.preventDefault();
-  let data = getFormFields(event.target);
-  api.changePassword(data)
-    .done(ui.success)
     .fail(ui.failure);
 };
 
@@ -144,6 +145,7 @@ const onUpdateGames = function (gameMoveIndex, gameMove, gameOver) {
     .fail(ui.failure);
 };
 
+
 //set value of text to play move
 const playerMove = function (event) {
     event.preventDefault();
@@ -205,11 +207,20 @@ const playerMove = function (event) {
       .fail(ui.failure);
   };
 
+const test = function (event) {
+  event.preventDefault();
+  console.log("test");
+};
+
 const addHandlers = () => {
   $('#sign-up').on('submit', onSignUp);
   $('#sign-in').on('submit', onSignIn);
   $('#sign-out').on('submit', onSignOut);
+  // $('#change-password').on('submit', onChangePassword);
   $('#change-password').on('submit', onChangePassword);
+  $('.changePasswordButton').on('click', function () {
+    $('#change-password').show();
+  });
   $('#new-game').on('submit', onNewGame);
   $('#view-games').on('submit', onViewGames);
   $('#0').on('click', playerMove);
