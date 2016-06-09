@@ -432,7 +432,7 @@ webpackJsonp([0],[
 	};
 
 	var failure = function failure(error) {
-	  console.log("Wrong");
+	  //  console.log("Wrong");
 	};
 
 	var signInSuccess = function signInSuccess(data) {
